@@ -56,14 +56,15 @@ const Auth = () => {
             try {
                 const response = await apiClient.post(LOGIN_ROUTE, { email, password }, { withCredentials: true });
 
-            if (response.data.user.id) {
-                setUserInfo(response.data.user)
-                if (response.data.user.profileSetup) navigate("/chat")
-                else navigate("/profile")
-            }
+                if (response.data.user.id) {
+                    setUserInfo(response.data.user)
+                    if (response.data.user.profileSetup) navigate("/chat")
+                    else navigate("/profile")
+                    toast.success("Login successful");
+                }
             } catch (error) {
                 if (error.response?.status === 401) {
-                    toast.error("Incorrect password"); 
+                    toast.error("Incorrect password");
                 } else if (error.response?.status === 404) {
                     toast.error("User not found");
                 } else {
