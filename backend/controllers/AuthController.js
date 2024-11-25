@@ -58,7 +58,7 @@ export const login = async (req, res, next) => {
         const auth = await compare(password, user.password);
 
         if (!auth) {
-            return res.status(401).send("Password is incorrect");
+            return res.status(401).send({message : "Password is incorrect"});
         }
 
         res.cookie("jwt", createToken(email, user.id), {
