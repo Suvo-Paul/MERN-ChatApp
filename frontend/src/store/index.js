@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { createAuthSlice } from "./slices/auth-silce";
+import { createChatSlice } from "./slices/chat-silce";
 
 export const useAppStore = create()((...a) => ({
-    ...createAuthSlice(...a)
+    ...createAuthSlice(...a),
+    ...createChatSlice(...a)
 }))

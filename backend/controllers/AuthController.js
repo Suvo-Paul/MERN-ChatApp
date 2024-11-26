@@ -58,7 +58,7 @@ export const login = async (req, res, next) => {
         const auth = await compare(password, user.password);
 
         if (!auth) {
-            return res.status(401).send({message : "Password is incorrect"});
+            return res.status(401).send({ message: "Password is incorrect" });
         }
 
         res.cookie("jwt", createToken(email, user.id), {
@@ -190,3 +190,13 @@ export const removeProfileImage = async (req, res, next) => {
     }
 }
 
+export const logout = async (req, res, next) => {
+    try {
+        res.cookie("jwt", "", { maxAge: 1, secure: true, sameSite: "None" })
+
+        return res.status(200).send("Logout successfull")
+    } catch (error) {
+        console.log({ error });
+        return res.status(500).send("Internal Server Error");
+    }
+}
