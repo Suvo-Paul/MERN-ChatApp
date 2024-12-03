@@ -47,7 +47,16 @@ const MessageBar = () => {
                 messageType: "text",
                 fileURL: undefined
             })
+        } else if (selectedChatType === "channel") {
+            socket.emit("send-channel-message", {
+                sender: userInfo.id,
+                content: message,
+                messageType: "text",
+                fileURL: undefined,
+                channelId: selectedChatData._id
+            });
         }
+        setMessage("");
     };
 
     const handleAttachmentClick = async () => {
@@ -85,6 +94,14 @@ const MessageBar = () => {
                             messageType: "file",
                             fileURL: response.data.filePath
                         });
+                    } else if (selectedChatType === "channel") {
+                        socket.emit("send-channel-message", {
+                            sender: userInfo.id,
+                            content: undefined,
+                            messageType: "file",
+                            fileURL: response.data.filePath,
+                            channelId: selectedChatData._id
+                        })
                     }
                 }
             }
