@@ -1,9 +1,7 @@
 // export const HOST = import.meta.env.VITE_SERVER_URL
 //console.log(HOST);
-export const HOST ="https://mern-chatapp-frontend-rxot.onrender.com/"
+export const HOST = import.meta.env.VITE_SERVER_URL
   
-
-
 export const AUTH_ROUTES = "api/auth";
 
 export const SIGNUP_ROUTE = `${AUTH_ROUTES}/signup`;
