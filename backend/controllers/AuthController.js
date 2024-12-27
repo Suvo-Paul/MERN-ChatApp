@@ -151,7 +151,7 @@ export const addProfileImage = async (req, res, next) => {
 
         let fileName = "https://mern-chatapp-yol1.onrender.com/uploads/profiles/" + date + req.file.originalname;
 
-        // renameSync(req.file.path, fileName);
+        renameSync(req.file.path, fileName);
 
         const updatedUser = await User.findByIdAndUpdate(req.userId, {
             image: fileName
