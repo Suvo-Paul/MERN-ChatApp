@@ -6,7 +6,7 @@ import multer from 'multer';
 
 const authRoutes = Router();
 
-const upload = multer({ dest: "https://mern-chatapp-yol1.onrender.com/uploads/profiles/" });
+const upload = multer({ dest: "uploads/profiles/" });
 
 authRoutes.post('/signup', signup);
 authRoutes.post('/login', login);
