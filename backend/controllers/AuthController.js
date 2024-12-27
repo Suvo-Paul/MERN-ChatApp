@@ -149,7 +149,7 @@ export const addProfileImage = async (req, res, next) => {
 
         const date = Date.now();
 
-        let fileName = "https://mern-chatapp-yol1.onrender.com/uploads/profiles/" + date + req.file.originalname;
+        let fileName = "uploads/profiles/" + date + req.file.originalname;
 
         renameSync(req.file.path, fileName);
 
