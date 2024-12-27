@@ -1,6 +1,7 @@
 import { compare } from "bcrypt";
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
+import { unlinkSync, existsSync } from "fs";
 
 import { renameSync, unlinkSync } from "fs"
 
@@ -177,7 +178,6 @@ export const removeProfileImage = async (req, res, next) => {
 
         if (user.image) {
             try {
-                const { unlinkSync, existsSync } = require("fs");
                 if (existsSync(user.image)) {
                     unlinkSync(user.image);
                 } else {
