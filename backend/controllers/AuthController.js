@@ -1,6 +1,6 @@
 import { compare } from "bcrypt";
 import User from "../models/UserModel.js";
-const path = require("path");
+import path from "path";
 import jwt from "jsonwebtoken";
 
 import { renameSync, unlinkSync } from "fs"
