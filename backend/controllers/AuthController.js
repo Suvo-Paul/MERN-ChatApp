@@ -1,6 +1,6 @@
 import { compare } from "bcrypt";
 import User from "../models/UserModel.js";
-import { existsSync } from "fs";
+const path = require("path");
 import jwt from "jsonwebtoken";
 
 import { renameSync, unlinkSync } from "fs"
@@ -150,12 +150,18 @@ export const addProfileImage = async (req, res, next) => {
 
         const date = Date.now();
 
-        let fileName = "uploads/profiles/" + date + req.file.originalname;
+        const filePath = path.join("uploads", "profiles", `${date}-${req.file.originalname}`)
 
-        renameSync(req.file.path, fileName);
+        const absolutePath = path.join(__dirname, filePath);
+
+        renameSync(req.file.path, absolutePath);
+
+        console.log(req.file);
+        console.log(filePath);
+
 
         const updatedUser = await User.findByIdAndUpdate(req.userId, {
-            image: fileName
+            image: filePath
         }, { new: true, runValidators: true });
 
         return res.status(200).json({
