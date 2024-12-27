@@ -172,23 +172,32 @@ export const removeProfileImage = async (req, res, next) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            return res.status(404).send("User not found")
+            return res.status(404).send("User not found");
         }
 
         if (user.image) {
-            unlinkSync(user.image);
+            try {
+                const { unlinkSync, existsSync } = require("fs");
+                if (existsSync(user.image)) {
+                    unlinkSync(user.image);
+                } else {
+                    console.log("Image file not found:", user.image);
+                }
+            } catch (error) {
+                console.error("Error deleting image file:", error);
+            }
         }
 
         user.image = null;
-
         await user.save();
 
-        return res.status(200).send("Profile Image removed successfully")
+        return res.status(200).send("Profile Image removed successfully");
     } catch (error) {
-        console.log({ error });
+        console.error("Error in removeProfileImage:", error);
         return res.status(500).send("Internal Server Error");
     }
-}
+};
+
 
 export const logout = async (req, res, next) => {
     try {
